@@ -1,0 +1,242 @@
+
+
+#define _XTAL_FREQ 4000000
+#pragma config FOSC = INTOSCIO  // Oscillator Selection bits (INTOSC oscillator: I/O function on RA6/OSC2/CLKOUT pin, I/O function on RA7/OSC1/CLKIN)
+#pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
+#pragma config PWRTE = OFF      // Power-up Timer Enable bit (PWRT disabled)
+#pragma config MCLRE = ON       // RA5/MCLR/VPP Pin Function Select bit (RA5/MCLR/VPP pin function is MCLR)
+#pragma config BOREN = OFF      // Brown-out Detect Enable bit (BOD disabled)
+#pragma config LVP = OFF        // Low-Voltage Programming Enable bit (RB4/PGM pin has digital I/O function, HV on MCLR must be used for programming)
+#pragma config CPD = OFF        // Data EE Memory Code Protection bit (Data memory code protection off)
+#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
+
+#include <xc.h>
+# include <stdint.h>
+/**/
+// RELE //
+#define RELE_CONFIG TRISAbits.TRISA6
+#define RELE PORTAbits.RA6
+#define LIGA_RELE RELE = 1
+#define DESLIGA_RELE RELE = 0
+
+// TECLAS //
+#define TECLA1_CONFIG TRISAbits.TRISA4
+#define TECLA1 PORTAbits.RA4
+#define APERTA_TECLA1 TECLA1 = 1
+#define SOLTA_TECLA1 TECLA1 = 0
+
+#define TECLA2_CONFIG TRISAbits.TRISA3
+#define TECLA2 PORTAbits.RA3
+#define APERTA_TECLA2 TECLA2 = 1
+#define SOLTA_TECLA2 TECLA2 = 0
+
+// DISPLAY //
+#define A_CONFIG TRISBbits.TRISB0
+#define A PORTBbits.RB0
+#define ACENDE_A A = 1
+#define APAGA_A A = 0
+
+#define B_CONFIG TRISBbits.TRISB1
+#define B PORTBbits.RB1
+#define ACENDE_B B = 1
+#define APAGA_B B = 0
+
+#define C_CONFIG TRISBbits.TRISB2
+#define C PORTBbits.RB2
+#define ACENDE_C C = 1
+#define APAGA_C C = 0
+
+#define D_CONFIG TRISBbits.TRISB3
+#define D PORTBbits.RB3
+#define ACENDE_D D = 1
+#define APAGA_D D = 0
+
+#define E_CONFIG TRISBbits.TRISB4
+#define E PORTBbits.RB4
+#define ACENDE_E E = 1
+#define APAGA_E E = 0
+
+#define F_CONFIG TRISBbits.TRISB5
+#define F PORTBbits.RB5
+#define ACENDE_F F = 1
+#define APAGA_F F = 0
+
+#define G_CONFIG TRISBbits.TRISB6
+#define G PORTBbits.RB6
+#define ACENDE_G G = 1
+#define APAGA_G G = 0
+
+#define DP_CONFIG TRISBbits.TRISB7
+#define DP PORTBbits.RB7
+#define ACENDE_DP DP = 1
+#define APAGA_DP DP = 0
+
+// ALIMENTAÇÃO DISPLAY //
+#define D1_CONFIG TRISAbits.TRISA1
+#define D1 PORTAbits.RA1
+#define LIGA_D1 D1 = 1
+#define DESLIGA_D1 D1 = 0
+
+#define D2_CONFIG TRISAbits.TRISA0
+#define D2 PORTAbits.RA0
+#define LIGA_D2 D2 = 1
+#define DESLIGA_D2 D2 = 0
+
+// SOM //
+#define SOM_CONFIG TRISAbits.TRISA2
+#define SOM PORTAbits.RA2
+#define LIGA_SOM SOM = 1
+#define DESLIGA_SOM SOM = 0
+
+// -----------------------------------------//
+
+void mostra_digito(uint8_t numero){
+    switch(numero){
+        case 0:
+              A=1;
+              B=1;
+              C=1;
+              D=1;
+              E=1;
+              F=1;
+              G=0;
+              DP=0;
+            break;
+            
+            case 1:
+              A=0;
+              B=1;
+              C=1;
+              D=0;
+              E=0;
+              F=0;
+              G=0;
+              DP=0;
+            break;
+            
+            case 2:
+              A=1;
+              B=1;
+              C=0;
+              D=1;
+              E=1;
+              F=0;
+              G=1;
+              DP=0;
+            break;
+            
+            case 3:
+                A=1;
+                B=1;
+                C=1;
+                D=1;
+                E=0;
+                F=0;
+                G=1;
+                DP=0;
+                break;
+                
+            case 4:
+              A=0;
+              B=1;
+              C=1;
+              D=0;
+              E=0;
+              F=1;
+              G=1;
+              DP=0;
+            break;
+            case 5:
+              A=1;
+              B=0;
+              C=1;
+              D=1;
+              E=0;
+              F=1;
+              G=1;
+              DP=0;
+            break;
+            case 6:
+              A=1;
+              B=0;
+              C=1;
+              D=1;
+              E=1;
+              F=1;
+              G=1;
+              DP=0;
+            break;
+            case 7:
+              A=1;
+              B=1;
+              C=1;
+              D=0;
+              E=0;
+              F=0;
+              G=0;
+              DP=0;
+            break;
+            case 8:
+              A=1;
+              B=1;
+              C=1;
+              D=1;
+              E=1;
+              F=1;
+              G=1;
+              DP=0;
+            break;
+            case 9:
+              A=1;
+              B=1;
+              C=1;
+              D=1;
+              E=0;
+              F=1;
+              G=1;
+              DP=0;
+            break;
+            case 10:
+              A=0;
+              B=0;
+              C=0;
+              D=0;
+              E=0;
+              F=0;
+              G=0;
+              DP=1;
+            break;
+    }
+}
+void main(void) {
+    
+    RELE_CONFIG = 0;
+    A_CONFIG = 0;
+    B_CONFIG = 0;
+    C_CONFIG = 0;
+    D_CONFIG = 0;
+    E_CONFIG = 0;
+    F_CONFIG = 0;
+    G_CONFIG = 0;
+    DP_CONFIG= 0;
+    
+    D1_CONFIG = 0;
+    D2_CONFIG = 0;
+    
+    LIGA_D1;
+    LIGA_D2;  
+    
+    while(1){
+        for(uint8_t a=0;a<=10;a++){
+            mostra_digito(a);
+             __delay_ms(1000);  
+        }
+        
+        LIGA_RELE;
+        __delay_ms(100);
+        
+        DESLIGA_RELE;
+        __delay_ms(100);
+    }
+    return;
+}
